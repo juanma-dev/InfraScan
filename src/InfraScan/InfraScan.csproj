@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyTitle>InfraScan</AssemblyTitle>
+    <Description>Monitoreo de servidores Linux y generación de informes</Description>
+    <Company>Juanma</Company>
+    <Copyright>Copyright © 2026 Juanma</Copyright>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.5.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="SSH.NET" Version="2025.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.6" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\report_assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

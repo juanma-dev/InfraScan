@@ -1,0 +1,27 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.DotSettings.user
+.vs/
+
+## Artifacts
+*.nupkg
+*.snupkg
+packages/
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+
+## IDE
+.idea/
+.vscode/
+
+## OS
+Thumbs.db
+.DS_Store
+
+## Reports output
+InfraScan_Reports/

@@ -1,0 +1,50 @@
+===============================
+   INFORME DEL SISTEMA
+===============================
+
+🔹 Resumen del sistema:
+Uptime:        up 4 hours, 35 minutes
+Hostname:      serviciosti01.unipamplona.edu.co
+OS:            Oracle Linux Server 8.10
+
+🔹 Rendimiento CPU:
+Carga actual:  2 de 18 núcleos de CPU
+Estado:        Carga elevada
+CPU en uso de usuario:                  5.1% 
+CPU en uso de sistema (kernel):         2.3% 
+CPU en procesos nice:                   0.0% 
+CPU inactiva:                           81.8% 
+CPU esperando por I/O:                  10.8% 
+CPU en interrupciones de hardware:      0.0% 
+CPU en interrupciones de software:      0.0% 
+CPU robada por otros entornos (VMs):    0.0%  
+
+🔹 Memoria:
+Uso:           2,7Gi / 93Gi
+Swap:          0B
+Estado:        Sin cuellos de botella
+
+🔹 Disco:
+Uso:           55G / 1,4T
+Estado:        Sin alerta de espacio
+
+🔹 Red:
+Conexiones establecidas: 24
+
+🔹 Registros del sistema:
+Errores críticos: 1
+Estado:           1 errores críticos detectados
+Errores más frecuentes:
+      1 53
+
+🔹 Seguridad SSH:
+Errores totales detectados: 17
+🔹Registros(Logs):
+Intentos fallidos de login (últimas 24h): 1151
+
+🔹 Actualizaciones del sistema:
+3 actualizaciones disponibles, incluyendo 2 de seguridad
+
+🔹 Servicios:
+Puertos escuchando: 22 80 111 443 1194 1521 6012 6013 6014 6015 9090 10864 11714 20916 26845 32196 
+

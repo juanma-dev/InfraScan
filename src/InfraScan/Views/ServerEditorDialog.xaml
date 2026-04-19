@@ -1,0 +1,116 @@
+<Window x:Class="InfraScan.Views.ServerEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:InfraScan.Converters"
+        Title="Servidor" Height="680" Width="520"
+        Icon="pack://application:,,,/Resources/icon.ico"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="{StaticResource BgDarkBrush}" ShowInTaskbar="False">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource BgMediumBrush}" Padding="20,16"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <TextBlock x:Name="DialogTitle" Text="Agregar Servidor" FontSize="18" FontWeight="Bold" 
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBlock Text="Configurar conexión SSH al servidor Linux" FontSize="11"
+                           Foreground="{StaticResource TextMutedBrush}" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Form -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20,16">
+            <StackPanel>
+                <!-- Display Name -->
+                <TextBlock Text="Nombre para mostrar" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtDisplayName" Style="{StaticResource ModernTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Host -->
+                <TextBlock Text="IP / Hostname del servidor" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtHost" Style="{StaticResource ModernTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Port -->
+                <TextBlock Text="Puerto SSH" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtPort" Style="{StaticResource ModernTextBox}" Text="22" Margin="0,0,0,12"/>
+
+                <!-- Username -->
+                <TextBlock Text="Usuario" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtUsername" Style="{StaticResource ModernTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Password -->
+                <TextBlock Text="Contraseña" Style="{StaticResource FieldLabel}"/>
+                <PasswordBox x:Name="TxtPassword" Style="{StaticResource ModernPasswordBox}" Margin="0,0,0,12"/>
+
+                <!-- Operator Name -->
+                <TextBlock Text="Nombre del operador" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtOperator" Style="{StaticResource ModernTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Contract -->
+                <TextBlock Text="Contrato" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtContract" Style="{StaticResource ModernTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Entity -->
+                <TextBlock Text="Entidad" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtEntity" Style="{StaticResource ModernTextBox}" Text="LinkTics" Margin="0,0,0,12"/>
+
+                <!-- Frequency -->
+                <TextBlock Text="Frecuencia de monitoreo" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtFrequency" Style="{StaticResource ModernTextBox}" 
+                         Text="2 veces por semana" Margin="0,0,0,16"/>
+
+                <!-- Cockpit Checkbox -->
+                <CheckBox x:Name="ChkCockpit" Style="{StaticResource ModernCheckBox}" 
+                          Content="  Tiene Cockpit web (puerto 9090)" Margin="0,0,0,12"
+                          Checked="ChkCockpit_Changed" Unchecked="ChkCockpit_Changed"/>
+
+                <!-- Cockpit fields (hidden by default) -->
+                <StackPanel x:Name="CockpitPanel" Visibility="Collapsed" Margin="0,0,0,8">
+                    <Border Background="{StaticResource BgCardBrush}" CornerRadius="8" Padding="16,12" Margin="0,0,0,4">
+                        <StackPanel>
+                            <TextBlock Text="URL de Cockpit" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtCockpitUrl" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Usuario Cockpit (dejar vacío para usar el mismo SSH)" 
+                                       Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtCockpitUser" Style="{StaticResource ModernTextBox}" Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Contraseña Cockpit (dejar vacío para usar la misma SSH)" 
+                                       Style="{StaticResource FieldLabel}"/>
+                            <PasswordBox x:Name="TxtCockpitPassword" Style="{StaticResource ModernPasswordBox}"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2" Padding="20,12" Background="{StaticResource BgMediumBrush}"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Cancelar" Style="{StaticResource SecondaryButton}" 
+                        Click="Cancel_Click" HorizontalAlignment="Left"/>
+                <Button Grid.Column="1" Content="💾 Guardar" Style="{StaticResource PrimaryButton}" 
+                        Click="Save_Click" Margin="0,0,8,0"/>
+                <Button Grid.Column="2" Content="📄 Generar informe" Style="{StaticResource GoldButton}" 
+                        Click="Generate_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

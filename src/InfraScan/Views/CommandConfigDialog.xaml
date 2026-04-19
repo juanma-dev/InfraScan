@@ -1,0 +1,183 @@
+<Window x:Class="InfraScan.Views.CommandConfigDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:InfraScan.Converters"
+        Title="Configuración de Comandos" Height="650" Width="750"
+        Icon="pack://application:,,,/Resources/icon.ico"
+        WindowStartupLocation="CenterOwner" 
+        Background="{StaticResource BgDarkBrush}" ShowInTaskbar="False">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource BgMediumBrush}" Padding="20,16"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <TextBlock Text="⚙️ Configuración de Comandos" FontSize="18" FontWeight="Bold" 
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBlock Text="Configura los comandos SSH que se ejecutan en el servidor" FontSize="11"
+                           Foreground="{StaticResource TextMutedBrush}" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Tabs -->
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0" Margin="12">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Background" Value="{StaticResource BgCardBrush}"/>
+                    <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                    <Setter Property="Padding" Value="16,8"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="tabBorder" Background="{StaticResource BgCardBrush}" 
+                                        CornerRadius="6,6,0,0" Padding="{TemplateBinding Padding}"
+                                        Margin="0,0,4,0">
+                                    <ContentPresenter ContentSource="Header"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="tabBorder" Property="Background" Value="{StaticResource AccentRedBrush}"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <!-- Table Commands Tab -->
+            <TabItem Header="📊 Comandos de Tabla">
+                <Border Background="{StaticResource BgCardBrush}" CornerRadius="0,6,6,6" Padding="12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Estos comandos alimentan la tabla resumen del informe" 
+                                   Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,8"/>
+
+                        <ListBox x:Name="TableCommandsList" Grid.Row="1" 
+                                 Background="Transparent" BorderThickness="0"
+                                 Foreground="{StaticResource TextPrimaryBrush}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{StaticResource BgDarkBrush}" CornerRadius="6" 
+                                            Padding="12,8" Margin="0,2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Margin="0,0,12,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="SemiBold" FontSize="13"
+                                                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                                                <ScrollViewer Grid.Row="1" Margin="0,4,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="0,0,0,6">
+                                                    <TextBlock Text="{Binding Command}" FontSize="11" Foreground="{StaticResource TextMutedBrush}" FontFamily="Consolas"/>
+                                                </ScrollViewer>
+                                            </Grid>
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Button Content="✏️" Style="{StaticResource IconButton}" 
+                                                        Tag="{Binding Id}" Click="EditTableCmd_Click"/>
+                                                <Button Content="🗑️" Style="{StaticResource IconButton}" 
+                                                        Tag="{Binding Id}" Click="DeleteCmd_Click"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Button Grid.Row="2" Content="➕ Agregar comando de tabla" 
+                                Style="{StaticResource SecondaryButton}" 
+                                Click="AddTableCmd_Click" Margin="0,8,0,0"
+                                HorizontalAlignment="Left"/>
+                    </Grid>
+                </Border>
+            </TabItem>
+
+            <!-- Output Commands Tab -->
+            <TabItem Header="📸 Comandos de Salida">
+                <Border Background="{StaticResource BgCardBrush}" CornerRadius="0,6,6,6" Padding="12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="La salida de estos comandos se muestra como imagen en el informe" 
+                                   Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,8"/>
+
+                        <ListBox x:Name="OutputCommandsList" Grid.Row="1" 
+                                 Background="Transparent" BorderThickness="0"
+                                 Foreground="{StaticResource TextPrimaryBrush}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{StaticResource BgDarkBrush}" CornerRadius="6" 
+                                            Padding="12,8" Margin="0,2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Margin="0,0,12,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="SemiBold" FontSize="13"
+                                                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                                                <ScrollViewer Grid.Row="1" Margin="0,4,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="0,0,0,6">
+                                                    <TextBlock Text="{Binding Command}" FontSize="11" Foreground="{StaticResource TextMutedBrush}" FontFamily="Consolas"/>
+                                                </ScrollViewer>
+                                            </Grid>
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Button Content="✏️" Style="{StaticResource IconButton}" 
+                                                        Tag="{Binding Id}" Click="EditOutputCmd_Click"/>
+                                                <Button Content="🗑️" Style="{StaticResource IconButton}" 
+                                                        Tag="{Binding Id}" Click="DeleteCmd_Click"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Button Grid.Row="2" Content="➕ Agregar comando de salida" 
+                                Style="{StaticResource SecondaryButton}" 
+                                Click="AddOutputCmd_Click" Margin="0,8,0,0"
+                                HorizontalAlignment="Left"/>
+                    </Grid>
+                </Border>
+            </TabItem>
+        </TabControl>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2" Padding="20,12" Background="{StaticResource BgMediumBrush}"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancelar" Style="{StaticResource SecondaryButton}" Click="Cancel_Click" Margin="0,0,8,0"/>
+                <Button Content="💾 Guardar" Style="{StaticResource PrimaryButton}" Click="Save_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

@@ -241,22 +241,21 @@ namespace InfraScan.Services
         /// </summary>
         private async Task EnsureChromiumInstalledAsync()
         {
-            // Playwright stores browsers in %LOCALAPPDATA%\ms-playwright
-            var playwrightPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "ms-playwright");
+            // Forzar a Playwright a usar una carpeta local dentro de la aplicación para los navegadores
+            var browsersPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playwright-browsers");
+            Environment.SetEnvironmentVariable("PLAYWRIGHT_BROWSERS_PATH", browsersPath);
 
             bool chromiumExists = false;
-            if (Directory.Exists(playwrightPath))
+            if (Directory.Exists(browsersPath))
             {
                 // Check if any chromium directory exists
-                var dirs = Directory.GetDirectories(playwrightPath, "chromium*");
+                var dirs = Directory.GetDirectories(browsersPath, "chromium*");
                 chromiumExists = dirs.Length > 0;
             }
 
             if (!chromiumExists)
             {
-                Log("📥 Cockpit » Chromium no encontrado — instalando automáticamente...");
+                Log("📥 Cockpit » Chromium no encontrado en la app — instalando automáticamente...");
                 Log("📥 Cockpit » Descargando Chromium (~89 MB). Esto solo ocurre la primera vez...");
 
                 // Run the Playwright CLI install command programmatically
@@ -265,7 +264,7 @@ namespace InfraScan.Services
 
                 if (exitCode == 0)
                 {
-                    Log("✅ Cockpit » Chromium instalado correctamente");
+                    Log("✅ Cockpit » Chromium instalado correctamente en la carpeta de la app");
                 }
                 else
                 {

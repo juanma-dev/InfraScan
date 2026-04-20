@@ -52,7 +52,7 @@ namespace InfraScan.Services
             AddStyles(mainPart);
 
             // === TITLE ===
-            var titleText = $"INFORME DE MONITOREO DEL SERVIDORES DE LA NUBE ({data.Hostname})";
+            var titleText = $"INFORME DE MONITOREO DEL SERVIDOR DE LA NUBE ({data.Hostname})";
             body.Append(CreateStyledParagraph(titleText, "44", true, "C00000", JustificationValues.Center));
             body.Append(CreateStyledParagraph(data.ReportDate.ToString("dd 'de' MMMM 'de' yyyy",
                 new CultureInfo("es-ES")), "24", false, NormalTextColor, JustificationValues.Center));

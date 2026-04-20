@@ -156,25 +156,31 @@ namespace InfraScan.ViewModels
                     }
                 }
 
-                // Cockpit screenshots (optional)
+                // Cockpit screenshots (optional) — uses Playwright for real browser screenshots
                 if (server.HasCockpitWeb && !string.IsNullOrEmpty(server.CockpitUrl))
                 {
-                    StatusText = "Capturando Cockpit web...";
+                    StatusText = "Capturando Cockpit web (Playwright)...";
                     Progress = 90;
                     try
                     {
                         var cockpitService = new CockpitScreenshotService();
+
+                        // Connect Cockpit logs to the UI console
+                        cockpitService.OnLog += msg =>
+                            Application.Current.Dispatcher.Invoke(() => AppendLog(msg));
+
                         var cockpitUser = !string.IsNullOrEmpty(server.CockpitUsername)
                             ? server.CockpitUsername : server.Username;
                         var cockpitPwd = !string.IsNullOrEmpty(server.CockpitEncryptedPassword)
                             ? CredentialService.Decrypt(server.CockpitEncryptedPassword)
                             : CredentialService.Decrypt(server.EncryptedPassword);
 
+                        AppendLog("\n━━━━━━━━━ COCKPIT WEB CAPTURE ━━━━━━━━━");
                         var (overview, metrics) = await cockpitService.CaptureScreenshotsAsync(
                             server.CockpitUrl, cockpitUser, cockpitPwd);
                         reportData.CockpitOverviewScreenshot = overview;
                         reportData.CockpitMetricsScreenshot = metrics;
-                        AppendLog("📸 Screenshots de Cockpit capturados");
+                        AppendLog("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
                     }
                     catch (Exception ex)
                     {

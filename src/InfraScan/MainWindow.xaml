@@ -28,6 +28,8 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Logo / Title -->
@@ -41,8 +43,31 @@
                     </StackPanel>
                 </StackPanel>
 
+                <!-- Monitoring Button -->
+                <Button Grid.Column="2" Click="OpenMonitoring_Click"
+                        Cursor="Hand" ToolTip="Panel de Monitoreo" Height="34">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="bd" Background="#1A2D4A" BorderBrush="#2D4A6A"
+                                    BorderThickness="1" CornerRadius="8" Padding="14,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="📡" FontSize="14" VerticalAlignment="Center" Margin="0,0,7,0"/>
+                                    <TextBlock Text="Monitoreo" FontSize="12" FontWeight="SemiBold"
+                                               Foreground="#60A5FA" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bd" Property="Background" Value="#1E3A5F"/>
+                                    <Setter TargetName="bd" Property="BorderBrush" Value="#3B82F6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
                 <!-- Menu Button -->
-                <Button Grid.Column="2" Style="{StaticResource IconButton}" 
+                <Button Grid.Column="4" Style="{StaticResource IconButton}" 
                         x:Name="MenuButton" Click="MenuButton_Click"
                         ToolTip="Menú" Width="40" Height="40">
                     <TextBlock Text="☰" FontSize="20" Foreground="{StaticResource TextSecondaryBrush}"/>

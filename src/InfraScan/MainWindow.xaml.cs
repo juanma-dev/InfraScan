@@ -140,5 +140,17 @@ namespace InfraScan
         {
             _vm.ConsoleOutput = "🖥️ InfraScan - Consola limpiada\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
         }
+
+        private MonitoringDashboard? _monitoringWindow;
+        private void OpenMonitoring_Click(object sender, RoutedEventArgs e)
+        {
+            if (_monitoringWindow == null || !_monitoringWindow.IsLoaded)
+            {
+                _monitoringWindow = new MonitoringDashboard();
+                _monitoringWindow.Owner = this;
+            }
+            _monitoringWindow.Show();
+            _monitoringWindow.Activate();
+        }
     }
 }

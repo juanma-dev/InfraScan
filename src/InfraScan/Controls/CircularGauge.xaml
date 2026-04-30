@@ -1,0 +1,36 @@
+<UserControl x:Class="InfraScan.Controls.CircularGauge"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="110" Height="110">
+    <Grid>
+        <Canvas Width="110" Height="110">
+            <!-- Background track -->
+            <Path x:Name="TrackPath"
+                  Stroke="#1A2540"
+                  StrokeThickness="9"
+                  Fill="Transparent"/>
+            <!-- Glow layer (behind, wider + transparent) -->
+            <Path x:Name="GlowPath"
+                  StrokeThickness="16"
+                  Opacity="0.22"
+                  Fill="Transparent"/>
+            <!-- Value arc -->
+            <Path x:Name="ValuePath"
+                  StrokeThickness="9"
+                  Fill="Transparent"/>
+        </Canvas>
+
+        <!-- Center labels -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6,0,0">
+            <TextBlock x:Name="ValueTextBlock"
+                       FontSize="17" FontWeight="Bold"
+                       Foreground="White" HorizontalAlignment="Center"
+                       FontFamily="Segoe UI"/>
+            <TextBlock x:Name="LabelTextBlock"
+                       FontSize="9" FontWeight="SemiBold"
+                       HorizontalAlignment="Center"
+                       FontFamily="Segoe UI" Opacity="0.55"
+                       Foreground="#94A3B8" Margin="0,1,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
